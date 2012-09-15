@@ -36,14 +36,26 @@
 			this.relativeSize = new System.Windows.Forms.NumericUpDown();
 			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.btnSave = new System.Windows.Forms.Button();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLatestChange = new System.Windows.Forms.ToolStripStatusLabel();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripStatusAutoUpdate = new System.Windows.Forms.ToolStripStatusLabel();
+			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.relativeSize)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.statusStrip1.SuspendLayout();
+			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblFileName
@@ -51,20 +63,20 @@
 			this.lblFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 							| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblFileName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.lblFileName.Location = new System.Drawing.Point(3, 33);
+			this.lblFileName.Location = new System.Drawing.Point(3, 29);
 			this.lblFileName.Name = "lblFileName";
-			this.lblFileName.Size = new System.Drawing.Size(994, 23);
+			this.lblFileName.Size = new System.Drawing.Size(1109, 23);
 			this.lblFileName.TabIndex = 0;
 			this.lblFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// btnWatchFile
 			// 
 			this.btnWatchFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnWatchFile.Location = new System.Drawing.Point(1012, 33);
+			this.btnWatchFile.Location = new System.Drawing.Point(1118, 29);
 			this.btnWatchFile.Name = "btnWatchFile";
 			this.btnWatchFile.Size = new System.Drawing.Size(81, 23);
 			this.btnWatchFile.TabIndex = 1;
-			this.btnWatchFile.Text = "PlantUML";
+			this.btnWatchFile.Text = "&Open";
 			this.btnWatchFile.UseVisualStyleBackColor = true;
 			this.btnWatchFile.Click += new System.EventHandler(this.btnWatchFile_Click);
 			// 
@@ -86,9 +98,9 @@
 			this.panel1.AutoScroll = true;
 			this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.panel1.Controls.Add(this.pictureBox);
-			this.panel1.Location = new System.Drawing.Point(3, 59);
+			this.panel1.Location = new System.Drawing.Point(3, 55);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(1199, 509);
+			this.panel1.Size = new System.Drawing.Size(1199, 513);
 			this.panel1.TabIndex = 3;
 			// 
 			// relativeSize
@@ -127,24 +139,14 @@
 			this.timer1.Interval = 250;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
-			// btnSave
-			// 
-			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSave.Location = new System.Drawing.Point(1116, 33);
-			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(81, 23);
-			this.btnSave.TabIndex = 6;
-			this.btnSave.Text = "Gem";
-			this.btnSave.UseVisualStyleBackColor = true;
-			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			// 
 			// statusStrip1
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLatestChange});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 571);
+            this.toolStripStatusLatestChange,
+            this.toolStripStatusAutoUpdate});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 569);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(1202, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(1202, 24);
 			this.statusStrip1.TabIndex = 7;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -155,20 +157,126 @@
 							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
 							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
 			this.toolStripStatusLatestChange.Name = "toolStripStatusLatestChange";
-			this.toolStripStatusLatestChange.Size = new System.Drawing.Size(230, 17);
+			this.toolStripStatusLatestChange.Size = new System.Drawing.Size(230, 19);
 			this.toolStripStatusLatestChange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(1202, 24);
+			this.menuStrip1.TabIndex = 8;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// fileToolStripMenuItem
+			// 
+			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.recentToolStripMenuItem});
+			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+			this.fileToolStripMenuItem.Text = "&File";
+			// 
+			// openToolStripMenuItem
+			// 
+			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.openToolStripMenuItem.Text = "&Open";
+			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+			// 
+			// saveAsToolStripMenuItem
+			// 
+			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+			this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.saveAsToolStripMenuItem.Text = "&Save PNG-image as ... ";
+			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+			// 
+			// recentToolStripMenuItem
+			// 
+			this.recentToolStripMenuItem.Enabled = false;
+			this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
+			this.recentToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.recentToolStripMenuItem.Text = "&Recent";
+			// 
+			// optionsToolStripMenuItem
+			// 
+			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateToolStripMenuItem});
+			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+			this.optionsToolStripMenuItem.Text = "&Options";
+			// 
+			// updateToolStripMenuItem
+			// 
+			this.updateToolStripMenuItem.Checked = true;
+			this.updateToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+			this.updateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+			this.updateToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+			this.updateToolStripMenuItem.Text = "Auto &Update";
+			this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+			// 
+			// aboutToolStripMenuItem
+			// 
+			this.aboutToolStripMenuItem.Enabled = false;
+			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+			this.aboutToolStripMenuItem.Text = "&About";
+			// 
+			// toolStripStatusAutoUpdate
+			// 
+			this.toolStripStatusAutoUpdate.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+			this.toolStripStatusAutoUpdate.Name = "toolStripStatusAutoUpdate";
+			this.toolStripStatusAutoUpdate.Size = new System.Drawing.Size(97, 19);
+			this.toolStripStatusAutoUpdate.Text = "Auto Update On";
+			// 
+			// viewToolStripMenuItem
+			// 
+			this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zoomInToolStripMenuItem,
+            this.zoomOutToolStripMenuItem});
+			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+			this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.viewToolStripMenuItem.Text = "&View";
+			// 
+			// zoomInToolStripMenuItem
+			// 
+			this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
+			this.zoomInToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
+			this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.zoomInToolStripMenuItem.Text = "Zoom in";
+			this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
+			// 
+			// zoomOutToolStripMenuItem
+			// 
+			this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
+			this.zoomOutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
+			this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.zoomOutToolStripMenuItem.Text = "Zoom out";
+			this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
 			// 
 			// PlantUMLViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1202, 593);
-			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.relativeSize);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.btnWatchFile);
 			this.Controls.Add(this.lblFileName);
 			this.Controls.Add(this.statusStrip1);
+			this.Controls.Add(this.menuStrip1);
+			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "PlantUMLViewer";
 			this.Text = "PlantUML : Source File Watcher";
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -177,6 +285,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -191,9 +301,20 @@
 		private System.Windows.Forms.NumericUpDown relativeSize;
 		private System.IO.FileSystemWatcher fileSystemWatcher1;
 		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLatestChange;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem recentToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusAutoUpdate;
+		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
 	}
 }
 

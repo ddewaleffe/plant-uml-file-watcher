@@ -42,6 +42,13 @@ namespace WatchFile
 
 			this.FormClosed += new FormClosedEventHandler(PlantUMLViewer_FormClosed);
 			this.FormClosing += new FormClosingEventHandler(PlantUMLViewer_FormClosing);
+
+			panel1.Click += new EventHandler(panel1_Click);
+		}
+
+		private void panel1_Click(object sender, EventArgs e)
+		{
+			panel1.Focus();
 		}
 
 		private void PlantUMLViewer_FormClosing(object sender, FormClosingEventArgs e)
@@ -64,27 +71,8 @@ namespace WatchFile
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
-			if (keyData == (Keys.S | Keys.Control))
-			{
-				btnSave.PerformClick();
-				return true;
-			}
-			else if (keyData == (Keys.F | Keys.Control))
-			{
-				btnWatchFile.PerformClick();
-				return true;
-			}
-			else if (keyData == (Keys.Control | Keys.Add))
-			{
-				relativeSize.UpButton();
-				return true;
-			}
-			else if (keyData == (Keys.Control | Keys.Subtract))
-			{
-				relativeSize.DownButton();
-				return true;
-			}
-			else if (keyData == (Keys.Control | Keys.Home))
+			
+			 if (keyData == (Keys.Control | Keys.Home))
 			{
 				relativeSize.Value = 100;
 				return true;
@@ -111,24 +99,7 @@ namespace WatchFile
 
 		private void btnWatchFile_Click(object sender, EventArgs e)
 		{
-			OpenFileDialog fd = new OpenFileDialog();
-			fd.CheckFileExists = true;
-			fd.CheckPathExists = true;
-			fd.Multiselect = false;		
-			fd.Filter = "*.uml (UML)|*.uml|*.txt (TXT)| *.txt";		
-			if (fd.ShowDialog() != DialogResult.OK)
-			{
-				lblFileName.Text = String.Empty;
-				fileSystemWatcher1.EnableRaisingEvents = false;				
-				return;
-			}
-
-			lblFileName.Text = fd.FileName;
-			_refreshImage = true;
-			relativeSize.Value = 100;
-			fileSystemWatcher1.Path = Path.GetDirectoryName(fd.FileName);
-			fileSystemWatcher1.Filter = Path.GetFileName(fd.SafeFileName);			
-			fileSystemWatcher1.EnableRaisingEvents = true;			
+			openToolStripMenuItem.PerformClick();
 		}
 
 
@@ -170,11 +141,13 @@ namespace WatchFile
 			{
 				Cursor.Current = oldCursor;
 			}
-		
 		}
 
 		private void relativeSize_ValueChanged(object sender, EventArgs e)
-		{			
+		{
+			if (pictureBox.Image == null)
+				return;
+
 			pictureBox.Width = (int)(pictureBox.Image.Width * ((relativeSize.Value) / 100));
 			pictureBox.Height = (int)(pictureBox.Image.Height * ((relativeSize.Value) / 100));
 		}
@@ -206,7 +179,7 @@ namespace WatchFile
 			}						
 		}
 
-		private void btnSave_Click(object sender, EventArgs e)
+		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (pictureBox.Image != null)
 			{
@@ -216,11 +189,11 @@ namespace WatchFile
 				fd.Title = "Gem som...";
 				fd.OverwritePrompt = true;
 
-				if (fd.ShowDialog() != DialogResult.OK)				
+				if (fd.ShowDialog() != DialogResult.OK)
 					return;
-				try 
+				try
 				{
-					Stream stream = fd.OpenFile();					
+					Stream stream = fd.OpenFile();
 					pictureBox.Image.Save(stream, ImageFormat.Png);
 					stream.Close();
 					MessageBox.Show("Filen er gemt som:\n" + fd.FileName);
@@ -228,8 +201,56 @@ namespace WatchFile
 				catch (Exception _e)
 				{
 					MessageBox.Show("Kunne ikke gemme! Fejlen er:\n" + _e.Message);
-				}				
+				}
 			}
+		}
+
+		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog fd = new OpenFileDialog();
+			fd.CheckFileExists = true;
+			fd.CheckPathExists = true;
+			fd.Multiselect = false;
+			fd.Filter = "*.uml (UML)|*.uml|*.txt (TXT)| *.txt";
+			if (fd.ShowDialog() != DialogResult.OK)
+			{
+				lblFileName.Text = String.Empty;
+				fileSystemWatcher1.EnableRaisingEvents = false;
+				return;
+			}
+
+			lblFileName.Text = fd.FileName;
+			_refreshImage = true;
+			relativeSize.Value = 100;
+			fileSystemWatcher1.Path = Path.GetDirectoryName(fd.FileName);
+			fileSystemWatcher1.Filter = Path.GetFileName(fd.SafeFileName);
+			fileSystemWatcher1.EnableRaisingEvents = true;		
+		}
+
+		private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (updateToolStripMenuItem.Checked)
+			{
+				updateToolStripMenuItem.Checked = false;
+				toolStripStatusAutoUpdate.Text = "Auto Update Off";				
+			}
+			else
+			{
+				updateToolStripMenuItem.Checked = true;
+				toolStripStatusAutoUpdate.Text = "Auto Update On";
+			}
+
+			timer1.Enabled = updateToolStripMenuItem.Checked;
+		}
+
+		private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+		{			
+			relativeSize.UpButton();
+		}
+
+		private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			relativeSize.DownButton();
 		}
 	}
 }
