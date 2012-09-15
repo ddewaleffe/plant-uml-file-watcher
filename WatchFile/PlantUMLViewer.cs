@@ -89,8 +89,7 @@ namespace WatchFile
 				relativeSize.Value = 100;
 				return true;
 			}	
-
-			
+	
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
@@ -108,10 +107,6 @@ namespace WatchFile
 				panel1.VerticalScroll.Value = panel1.VerticalScroll.Minimum;
 			else
 				panel1.VerticalScroll.Value = panel1.VerticalScroll.Maximum;
-
-			//Point p = panel1.AutoScrollPosition;
-
-
 		}
 
 		private void btnWatchFile_Click(object sender, EventArgs e)
@@ -162,7 +157,7 @@ namespace WatchFile
 				pictureBox.Load(_tempFilePath + _tempFileName);
 				relativeSize_ValueChanged(null, null);
 
-				lblLatestEdit.Text = String.Format("Last edit (plantuml-file): {0}", File.GetLastWriteTime(lblFileName.Text));
+				toolStripStatusLatestChange.Text = String.Format("Last edit: {0}", File.GetLastWriteTime(lblFileName.Text));
 
 				return true;
 			}
