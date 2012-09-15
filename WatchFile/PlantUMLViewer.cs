@@ -252,5 +252,11 @@ namespace WatchFile
 		{
 			relativeSize.DownButton();
 		}
+
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Application.Exit();
+		}
 	}
 }

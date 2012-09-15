@@ -50,6 +50,8 @@
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.relativeSize)).BeginInit();
@@ -97,6 +99,7 @@
 							| System.Windows.Forms.AnchorStyles.Right)));
 			this.panel1.AutoScroll = true;
 			this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.panel1.Controls.Add(this.pictureBox);
 			this.panel1.Location = new System.Drawing.Point(3, 55);
 			this.panel1.Name = "panel1";
@@ -111,7 +114,7 @@
             0,
             0,
             0});
-			this.relativeSize.Location = new System.Drawing.Point(1111, 573);
+			this.relativeSize.Location = new System.Drawing.Point(1111, 572);
 			this.relativeSize.Maximum = new decimal(new int[] {
             500,
             0,
@@ -178,10 +181,12 @@
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveAsToolStripMenuItem,
-            this.recentToolStripMenuItem});
+            this.recentToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-			this.fileToolStripMenuItem.Text = "&File";
+			this.fileToolStripMenuItem.Text = "Exit";
 			// 
 			// openToolStripMenuItem
 			// 
@@ -265,6 +270,19 @@
 			this.zoomOutToolStripMenuItem.Text = "Zoom out";
 			this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
 			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(229, 6);
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.exitToolStripMenuItem.Text = "&Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			// 
 			// PlantUMLViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,6 +333,8 @@
 		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 	}
 }
 
