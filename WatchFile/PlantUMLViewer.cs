@@ -100,14 +100,18 @@ namespace WatchFile
 			if (e.Delta == 0 || pictureBox.Image == null)
 				return;
 
-			decimal ticks =  (e.Delta / 120);
-			decimal newValue = relativeSize.Value + (ticks * relativeSize.Increment);
-			if (newValue >= relativeSize.Minimum && newValue <= relativeSize.Maximum)
-				relativeSize.Value += (ticks * relativeSize.Increment);
-			else if (newValue < relativeSize.Minimum)
-				relativeSize.Value = relativeSize.Minimum;
+			int ticks =  (e.Delta / -120);			
+			int  newValue = (int) panel1.VerticalScroll.Value + (ticks * panel1.VerticalScroll.LargeChange);
+			if (newValue >= panel1.VerticalScroll.Minimum && newValue <= panel1.VerticalScroll.Maximum)
+				panel1.VerticalScroll.Value = newValue;
+			else if (newValue < panel1.VerticalScroll.Minimum)
+				panel1.VerticalScroll.Value = panel1.VerticalScroll.Minimum;
 			else
-				relativeSize.Value = relativeSize.Maximum;
+				panel1.VerticalScroll.Value = panel1.VerticalScroll.Maximum;
+
+			//Point p = panel1.AutoScrollPosition;
+
+
 		}
 
 		private void btnWatchFile_Click(object sender, EventArgs e)
