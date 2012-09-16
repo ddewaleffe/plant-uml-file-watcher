@@ -52,6 +52,7 @@
 			this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.relativeSize)).BeginInit();
@@ -186,7 +187,7 @@
             this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-			this.fileToolStripMenuItem.Text = "Exit";
+			this.fileToolStripMenuItem.Text = "&File";
 			// 
 			// openToolStripMenuItem
 			// 
@@ -249,7 +250,8 @@
 			// 
 			this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zoomInToolStripMenuItem,
-            this.zoomOutToolStripMenuItem});
+            this.zoomOutToolStripMenuItem,
+            this.resetZoomToolStripMenuItem});
 			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
 			this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			this.viewToolStripMenuItem.Text = "&View";
@@ -282,6 +284,14 @@
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
 			this.exitToolStripMenuItem.Text = "&Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			// 
+			// resetZoomToolStripMenuItem
+			// 
+			this.resetZoomToolStripMenuItem.Name = "resetZoomToolStripMenuItem";
+			this.resetZoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
+			this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+			this.resetZoomToolStripMenuItem.Text = "Reset Zoom";
+			this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.resetZoomToolStripMenuItem_Click);
 			// 
 			// PlantUMLViewer
 			// 
@@ -335,6 +345,7 @@
 		private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem resetZoomToolStripMenuItem;
 	}
 }
 

@@ -22,6 +22,9 @@ namespace WatchFile
 		string _javaExe = "";
 		string _tempFilePath = "";
 		string _tempFileName = "";
+		DateTime _lastWriteDateTime = DateTime.MinValue;
+
+		ResentFileHandler _resentFileHandler = null;
 
 		bool _refreshImage = false;
 
@@ -34,7 +37,7 @@ namespace WatchFile
 			_tempFilePath = ConfigurationManager.AppSettings["TempFileDir"].TrimEnd('\\').TrimEnd('/') + "\\";
 
 			_tempFileName = Guid.NewGuid().ToString() + ".png";
-
+			
 			pictureBox.Size = new Size(0, 0);
 
 			this.MouseWheel += new MouseEventHandler(Form1_MouseWheel);
@@ -44,6 +47,13 @@ namespace WatchFile
 			this.FormClosing += new FormClosingEventHandler(PlantUMLViewer_FormClosing);
 
 			panel1.Click += new EventHandler(panel1_Click);
+
+			_resentFileHandler = new ResentFileHandler(recentToolStripMenuItem, new ResentFileHandler.OpenRecentFileHandler(OnResentFile)); 			
+		}
+
+		private void OnResentFile(string filename)
+		{
+			loadFile(filename);
 		}
 
 		private void panel1_Click(object sender, EventArgs e)
@@ -54,7 +64,7 @@ namespace WatchFile
 		private void PlantUMLViewer_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			timer1.Enabled = false; 
-			fileSystemWatcher1.EnableRaisingEvents = false;			
+			fileSystemWatcher1.EnableRaisingEvents = false;
 		}
 
 		private void PlantUMLViewer_FormClosed(object sender, FormClosedEventArgs e)
@@ -67,18 +77,6 @@ namespace WatchFile
 				}
 			}
 			catch { }
-		}
-
-		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-		{
-			
-			 if (keyData == (Keys.Control | Keys.Home))
-			{
-				relativeSize.Value = 100;
-				return true;
-			}	
-	
-			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
 
@@ -108,12 +106,28 @@ namespace WatchFile
 			Cursor oldCursor = Cursor.Current;
 			try
 			{
+				if (!File.Exists(fullPathToFile))
+				{
+					MessageBox.Show("File not found!\nFile requested: " + fullPathToFile, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					_resentFileHandler.Remove(fullPathToFile);
+					pictureBox.Image = null;
+					toolStripStatusAutoUpdate.Text = String.Empty;
+					return false;
+				}
+
+				_resentFileHandler.Add(fullPathToFile);
+				lblFileName.Text = fullPathToFile;
+
+				fileSystemWatcher1.Path = Path.GetDirectoryName(fullPathToFile);
+				fileSystemWatcher1.Filter = Path.GetFileName(fullPathToFile);
+				fileSystemWatcher1.EnableRaisingEvents = true;	
+
 				Cursor.Current = Cursors.WaitCursor;
 				System.Diagnostics.Process process = new System.Diagnostics.Process();
 				System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 				startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 				startInfo.FileName = "cmd.exe";
-				startInfo.Arguments = String.Format("/C type \"{0}\" | \"{1}\" -jar \"{2}\" -pipe > {3}", lblFileName.Text, _javaExe, _plantUmlJarFIle, _tempFilePath + _tempFileName);
+				startInfo.Arguments = String.Format("/C type \"{0}\" | \"{1}\" -jar \"{2}\"  -nbthread {4}  -pipe > {3}", lblFileName.Text, _javaExe, _plantUmlJarFIle, _tempFilePath + _tempFileName, Environment.ProcessorCount);
 
 				process.StartInfo = startInfo;
 
@@ -125,6 +139,7 @@ namespace WatchFile
 					return false;
 				}
 
+				
 				pictureBox.Load(_tempFilePath + _tempFileName);
 				relativeSize_ValueChanged(null, null);
 
@@ -156,14 +171,19 @@ namespace WatchFile
 		{
 			if (e.ChangeType == System.IO.WatcherChangeTypes.Changed)
 			{
-				fileSystemWatcher1.EnableRaisingEvents = false;
-				_refreshImage = true; 
+				if (File.GetLastWriteTime(lblFileName.Text) != _lastWriteDateTime)
+				{
+					_lastWriteDateTime = File.GetLastWriteTime(lblFileName.Text);
+					fileSystemWatcher1.EnableRaisingEvents = false;
+					_refreshImage = true;
+				}
 			}
 			else if (e.ChangeType == System.IO.WatcherChangeTypes.Deleted || e.ChangeType == System.IO.WatcherChangeTypes.Renamed)
 			{
 				fileSystemWatcher1.EnableRaisingEvents = false;
 				pictureBox.Image = null;
-				pictureBox.Size = new Size(0, 0);					
+				pictureBox.Size = new Size(0, 0);
+				toolStripStatusLatestChange.Text = String.Empty;
 			}
 		}
 
@@ -172,11 +192,15 @@ namespace WatchFile
 			if (!_refreshImage || String.IsNullOrEmpty(lblFileName.Text))
 				return;
 
+			timer1.Enabled = false; // stop the ticker while working...
+
 			if (loadFile(lblFileName.Text))
 			{
-				_refreshImage = false;
 				fileSystemWatcher1.EnableRaisingEvents = true;
-			}						
+				_refreshImage = false;
+			}
+
+			timer1.Enabled = updateToolStripMenuItem.Checked;
 		}
 
 		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,12 +243,7 @@ namespace WatchFile
 				return;
 			}
 
-			lblFileName.Text = fd.FileName;
-			_refreshImage = true;
-			relativeSize.Value = 100;
-			fileSystemWatcher1.Path = Path.GetDirectoryName(fd.FileName);
-			fileSystemWatcher1.Filter = Path.GetFileName(fd.SafeFileName);
-			fileSystemWatcher1.EnableRaisingEvents = true;		
+			loadFile(fd.FileName);
 		}
 
 		private void updateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,6 +276,11 @@ namespace WatchFile
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
+		}
+
+		private void resetZoomToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			relativeSize.Value = 100;
 		}
 	}
 }
