@@ -16,7 +16,7 @@ namespace WatchFile
 {
 	public partial class PlantUMLViewer : Form
 	{
-		// Change cursor when building png-file
+		#region Fields and constructors
 
 		string _plantUmlJarFIle = "";
 		string _javaExe = "";
@@ -48,60 +48,18 @@ namespace WatchFile
 
 			panel1.Click += new EventHandler(panel1_Click);
 
-			_resentFileHandler = new ResentFileHandler(recentToolStripMenuItem, new ResentFileHandler.OpenRecentFileHandler(OnResentFile)); 			
+			_resentFileHandler = new ResentFileHandler(recentToolStripMenuItem, new ResentFileHandler.OpenRecentFileHandler(OnResentFile));
 		}
+		#endregion
+
+		#region Load file/show picture
 
 		private void OnResentFile(string filename)
 		{
-			loadFile(filename);
+			LoadFile(filename);
 		}
 
-		private void panel1_Click(object sender, EventArgs e)
-		{
-			panel1.Focus();
-		}
-
-		private void PlantUMLViewer_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			timer1.Enabled = false; 
-			fileSystemWatcher1.EnableRaisingEvents = false;
-		}
-
-		private void PlantUMLViewer_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			try
-			{				
-				if (File.Exists(_tempFilePath + _tempFileName))
-				{
-					File.Delete(_tempFilePath + _tempFileName);
-				}
-			}
-			catch { }
-		}
-
-
-		private void Form1_MouseWheel(object sender, MouseEventArgs e)
-		{
-			if (e.Delta == 0 || pictureBox.Image == null)
-				return;
-
-			int ticks =  (e.Delta / -120);			
-			int  newValue = (int) panel1.VerticalScroll.Value + (ticks * panel1.VerticalScroll.LargeChange);
-			if (newValue >= panel1.VerticalScroll.Minimum && newValue <= panel1.VerticalScroll.Maximum)
-				panel1.VerticalScroll.Value = newValue;
-			else if (newValue < panel1.VerticalScroll.Minimum)
-				panel1.VerticalScroll.Value = panel1.VerticalScroll.Minimum;
-			else
-				panel1.VerticalScroll.Value = panel1.VerticalScroll.Maximum;
-		}
-
-		private void btnWatchFile_Click(object sender, EventArgs e)
-		{
-			openToolStripMenuItem.PerformClick();
-		}
-
-
-		private bool loadFile(string fullPathToFile)
+		private bool LoadFile(string fullPathToFile)
 		{
 			Cursor oldCursor = Cursor.Current;
 			try
@@ -158,6 +116,83 @@ namespace WatchFile
 			}
 		}
 
+		#endregion
+
+		#region Control events
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			if (!_refreshImage || String.IsNullOrEmpty(lblFileName.Text))
+				return;
+
+			timer1.Enabled = false; // stop the ticker while working...
+
+			if (LoadFile(lblFileName.Text))
+			{
+				fileSystemWatcher1.EnableRaisingEvents = true;
+				_refreshImage = false;
+			}
+
+			timer1.Enabled = updateToolStripMenuItem.Checked;
+		}
+
+		private void PlantUMLViewer_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			timer1.Enabled = false;
+			fileSystemWatcher1.EnableRaisingEvents = false;
+		}
+
+		private void PlantUMLViewer_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			try
+			{
+				if (File.Exists(_tempFilePath + _tempFileName))
+				{
+					File.Delete(_tempFilePath + _tempFileName);
+				}
+			}
+			catch { }
+		}
+
+		private void Form1_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if (e.Delta == 0 || pictureBox.Image == null)
+				return;
+
+			int ticks = (e.Delta / -120);
+
+			if (ModifierKeys == Keys.Control || MouseButtons == MouseButtons.Right)
+			{
+				for (int i = 0; i < Math.Abs(ticks); i++)
+				{
+					if (ticks < 0)
+						zoomInToolStripMenuItem.PerformClick();
+					else
+						zoomOutToolStripMenuItem.PerformClick();
+				}
+				return;
+			}
+			// else
+
+			int newValue = (int)panel1.VerticalScroll.Value + (ticks * panel1.VerticalScroll.LargeChange);
+			if (newValue >= panel1.VerticalScroll.Minimum && newValue <= panel1.VerticalScroll.Maximum)
+				panel1.VerticalScroll.Value = newValue;
+			else if (newValue < panel1.VerticalScroll.Minimum)
+				panel1.VerticalScroll.Value = panel1.VerticalScroll.Minimum;
+			else
+				panel1.VerticalScroll.Value = panel1.VerticalScroll.Maximum;
+		}
+
+		private void panel1_Click(object sender, EventArgs e)
+		{
+			panel1.Focus();
+		}
+
+		private void btnWatchFile_Click(object sender, EventArgs e)
+		{
+			openToolStripMenuItem.PerformClick();
+		}
+
 		private void relativeSize_ValueChanged(object sender, EventArgs e)
 		{
 			if (pictureBox.Image == null)
@@ -166,6 +201,8 @@ namespace WatchFile
 			pictureBox.Width = (int)(pictureBox.Image.Width * ((relativeSize.Value) / 100));
 			pictureBox.Height = (int)(pictureBox.Image.Height * ((relativeSize.Value) / 100));
 		}
+		#endregion
+		#region Menu actions
 
 		private void fileSystemWatcher1_Changed(object sender, System.IO.FileSystemEventArgs e)
 		{
@@ -187,21 +224,7 @@ namespace WatchFile
 			}
 		}
 
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-			if (!_refreshImage || String.IsNullOrEmpty(lblFileName.Text))
-				return;
-
-			timer1.Enabled = false; // stop the ticker while working...
-
-			if (loadFile(lblFileName.Text))
-			{
-				fileSystemWatcher1.EnableRaisingEvents = true;
-				_refreshImage = false;
-			}
-
-			timer1.Enabled = updateToolStripMenuItem.Checked;
-		}
+	
 
 		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -243,7 +266,7 @@ namespace WatchFile
 				return;
 			}
 
-			loadFile(fd.FileName);
+			LoadFile(fd.FileName);
 		}
 
 		private void updateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -272,7 +295,6 @@ namespace WatchFile
 			relativeSize.DownButton();
 		}
 
-
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
@@ -282,5 +304,6 @@ namespace WatchFile
 		{
 			relativeSize.Value = 100;
 		}
+		#endregion
 	}
 }
