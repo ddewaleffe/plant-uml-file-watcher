@@ -70,5 +70,29 @@ namespace PlantUMLFileWatcher.Properties {
                 this["ApplicationVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://code.google.com/p/plant-uml-file-watcher/")]
+        public string ProjectHomePage {
+            get {
+                return ((string)(this["ProjectHomePage"]));
+            }
+            set {
+                this["ProjectHomePage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://plantuml.sourceforge.net/")]
+        public string PlantUMLHomePage {
+            get {
+                return ((string)(this["PlantUMLHomePage"]));
+            }
+            set {
+                this["PlantUMLHomePage"] = value;
+            }
+        }
     }
 }

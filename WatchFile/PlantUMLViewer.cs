@@ -307,6 +307,23 @@ namespace PlantUMLFileWatcher
 		{
 			relativeSize.Value = 100;
 		}
+		
+		private void projectHomePageToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenHomepage(Properties.Settings.Default.ProjectHomePage);
+		}
+
+		private void OpenHomepage(String url)		
+		{
+			System.Diagnostics.Process.Start(url);
+		}
+		#endregion
+
+		#region Helper methods
+		private void plantUMLHomePageToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenHomepage(Properties.Settings.Default.PlantUMLHomePage);
+		}
 		#endregion
 	}
 }

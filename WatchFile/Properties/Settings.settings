@@ -14,5 +14,11 @@
     <Setting Name="ApplicationVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.5</Value>
     </Setting>
+    <Setting Name="ProjectHomePage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://code.google.com/p/plant-uml-file-watcher/</Value>
+    </Setting>
+    <Setting Name="PlantUMLHomePage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://plantuml.sourceforge.net/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
