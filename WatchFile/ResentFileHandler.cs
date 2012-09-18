@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WatchFile
+namespace PlantUMLFileWatcher
 {
 	class ResentFileHandler
 	{
@@ -76,7 +76,7 @@ namespace WatchFile
 				else
 				{
 					// can we add it, or should we remove some?
-					if (_resentFiles.Count == Properties.Settings.Default.NumberOfRecentFiles)
+					if (_resentFiles.Count == PlantUMLFileWatcher.Properties.Settings.Default.NumberOfRecentFiles)
 						RemoveOldest();
 							
 					// add the new file

@@ -1,4 +1,4 @@
-﻿namespace WatchFile
+﻿namespace PlantUMLFileWatcher
 {
 	partial class PlantUMLViewer
 	{

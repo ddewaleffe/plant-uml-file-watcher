@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WatchFile.Properties {
+namespace PlantUMLFileWatcher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -44,6 +44,30 @@ namespace WatchFile.Properties {
             }
             set {
                 this["NumberOfRecentFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PlantUML File Watcher")]
+        public string ApplicationTitle {
+            get {
+                return ((string)(this["ApplicationTitle"]));
+            }
+            set {
+                this["ApplicationTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public string ApplicationVersion {
+            get {
+                return ((string)(this["ApplicationVersion"]));
+            }
+            set {
+                this["ApplicationVersion"] = value;
             }
         }
     }

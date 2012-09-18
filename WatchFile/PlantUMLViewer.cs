@@ -12,7 +12,7 @@ using System.Threading;
 using System.Configuration;
 using System.Drawing.Imaging;
 
-namespace WatchFile
+namespace PlantUMLFileWatcher
 {
 	public partial class PlantUMLViewer : Form
 	{
@@ -34,7 +34,8 @@ namespace WatchFile
 
 			_plantUmlJarFIle = ConfigurationManager.AppSettings["PlantUML"];
 			_javaExe = ConfigurationManager.AppSettings["JavaExecutable"];
-			_tempFilePath = ConfigurationManager.AppSettings["TempFileDir"].TrimEnd('\\').TrimEnd('/') + "\\";
+
+			_tempFilePath = Path.GetTempPath();
 
 			_tempFileName = Guid.NewGuid().ToString() + ".png";
 			
@@ -49,6 +50,8 @@ namespace WatchFile
 			panel1.Click += new EventHandler(panel1_Click);
 
 			_resentFileHandler = new ResentFileHandler(recentToolStripMenuItem, new ResentFileHandler.OpenRecentFileHandler(OnResentFile));
+
+			this.Text = String.Format("{0} - version {1}", Properties.Settings.Default.ApplicationTitle, Properties.Settings.Default.ApplicationVersion ); 
 		}
 		#endregion
 
