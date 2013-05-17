@@ -325,5 +325,16 @@ namespace PlantUMLFileWatcher
 			OpenHomepage(Properties.Settings.Default.PlantUMLHomePage);
 		}
 		#endregion
+
+		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (!String.IsNullOrEmpty(lblFileName.Text) )
+			{
+				_lastWriteDateTime = File.GetLastWriteTime(lblFileName.Text);
+				fileSystemWatcher1.EnableRaisingEvents = false;
+				_refreshImage = false;
+				LoadFile(lblFileName.Text);
+			}
+		}
 	}
 }

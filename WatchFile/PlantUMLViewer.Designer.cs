@@ -56,6 +56,7 @@
 			this.projectHomePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plantUMLHomePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.relativeSize)).BeginInit();
@@ -67,7 +68,7 @@
 			// lblFileName
 			// 
 			this.lblFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-							| System.Windows.Forms.AnchorStyles.Right)));
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblFileName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.lblFileName.Location = new System.Drawing.Point(3, 29);
 			this.lblFileName.Name = "lblFileName";
@@ -99,8 +100,8 @@
 			// panel1
 			// 
 			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-							| System.Windows.Forms.AnchorStyles.Left)
-							| System.Windows.Forms.AnchorStyles.Right)));
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.panel1.AutoScroll = true;
 			this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -161,8 +162,8 @@
 			// 
 			this.toolStripStatusLatestChange.AutoSize = false;
 			this.toolStripStatusLatestChange.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+						| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+						| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
 			this.toolStripStatusLatestChange.Name = "toolStripStatusLatestChange";
 			this.toolStripStatusLatestChange.Size = new System.Drawing.Size(230, 19);
 			this.toolStripStatusLatestChange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -170,8 +171,8 @@
 			// toolStripStatusAutoUpdate
 			// 
 			this.toolStripStatusAutoUpdate.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-							| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+						| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+						| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
 			this.toolStripStatusAutoUpdate.Name = "toolStripStatusAutoUpdate";
 			this.toolStripStatusAutoUpdate.Size = new System.Drawing.Size(97, 19);
 			this.toolStripStatusAutoUpdate.Text = "Auto Update On";
@@ -195,6 +196,7 @@
             this.openToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.recentToolStripMenuItem,
+            this.refreshToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -320,6 +322,14 @@
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.aboutToolStripMenuItem.Text = "About";
 			// 
+			// refreshToolStripMenuItem
+			// 
+			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+			this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.refreshToolStripMenuItem.Text = "Refresh";
+			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			// 
 			// PlantUMLViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,6 +386,7 @@
 		private System.Windows.Forms.ToolStripMenuItem projectHomePageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem plantUMLHomePageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
 	}
 }
 
