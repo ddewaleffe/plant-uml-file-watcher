@@ -87,9 +87,9 @@ namespace PlantUMLFileWatcher
 				System.Diagnostics.Process process = new System.Diagnostics.Process();
 				System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 				startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-				startInfo.FileName = "cmd.exe";
-				startInfo.Arguments = String.Format("/C type \"{0}\" | \"{1}\" -jar \"{2}\"  -nbthread {4}  -pipe > {3}", lblFileName.Text, _javaExe, _plantUmlJarFIle, _tempFilePath + _tempFileName, Environment.ProcessorCount);
-
+				startInfo.FileName = "cmd.exe";	
+				startInfo.Arguments = String.Format("/C type \"{0}\" | \"{1}\" -jar \"{2}\"  -nbthread {4}  -pipe > \"{3}\"", lblFileName.Text, _javaExe,_plantUmlJarFIle, _tempFilePath + _tempFileName,Environment.ProcessorCount);
+				
 				process.StartInfo = startInfo;
 
 				process.Start();
@@ -315,7 +315,6 @@ namespace PlantUMLFileWatcher
 
 		private void OpenHomepage(String url)		
 		{
-			System.Diagnostics.Process.Start(url);
 		}
 		#endregion
 
