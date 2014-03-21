@@ -62,7 +62,7 @@ namespace PlantUMLFileWatcher
 			LoadFile(filename);
 		}
 
-		private bool LoadFile(string fullPathToFile)
+		public bool LoadFile(string fullPathToFile)
 		{
 			Cursor oldCursor = Cursor.Current;
 			try

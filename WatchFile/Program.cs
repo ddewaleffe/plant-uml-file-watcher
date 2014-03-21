@@ -11,11 +11,17 @@ namespace PlantUMLFileWatcher
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new PlantUMLViewer());
+			PlantUMLViewer pv = new PlantUMLViewer();
+
+			// Load file from command line
+			if (args.Length > 0)
+				pv.LoadFile(args[0]);
+
+			Application.Run(pv);
 		}
 	}
 }
