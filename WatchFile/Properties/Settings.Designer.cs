@@ -49,18 +49,6 @@ namespace PlantUMLFileWatcher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PlantUML File Watcher")]
-        public string ApplicationTitle {
-            get {
-                return ((string)(this["ApplicationTitle"]));
-            }
-            set {
-                this["ApplicationTitle"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://code.google.com/p/plant-uml-file-watcher/")]
         public string ProjectHomePage {
             get {

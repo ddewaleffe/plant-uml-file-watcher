@@ -19,6 +19,30 @@ namespace PlantUMLFileWatcher
 	{
 		#region Fields and constructors
 
+		 /// <summary>
+		 /// Gets the assembly title.
+		 /// </summary>
+		 /// <value>The assembly title.</value>
+		 private  string AssemblyTitle
+		 {
+			  get
+			  {
+					// Get all Title attributes on this assembly
+					object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+					// If there is at least one Title attribute
+					if (attributes.Length > 0)
+					{
+						 // Select the first one
+						 AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+						 // If it is not an empty string, return it
+						 if (titleAttribute.Title != "")
+							  return titleAttribute.Title;
+					}
+					// If there was no Title attribute, or if the Title attribute was the empty string, return the .exe name
+					return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+			  }
+		 }
+
 		string _plantUmlJarFIle = "";
 		string _javaExe = "";
 		string _tempFilePath = "";
@@ -51,8 +75,8 @@ namespace PlantUMLFileWatcher
 			panel1.Click += new EventHandler(panel1_Click);
 
 			_resentFileHandler = new ResentFileHandler(recentToolStripMenuItem, new ResentFileHandler.OpenRecentFileHandler(OnResentFile));
-			  
-			this.Text = String.Format("{0} - version {1}", Properties.Settings.Default.ApplicationTitle, Assembly.GetEntryAssembly().GetName().Version.ToString()); 
+
+			this.Text = String.Format("{0} - Version {1}", AssemblyTitle, Assembly.GetEntryAssembly().GetName().Version.ToString()); 
 		}
 		#endregion
 
@@ -227,9 +251,7 @@ namespace PlantUMLFileWatcher
 				toolStripStatusLatestChange.Text = String.Empty;
 			}
 		}
-
 	
-
 		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (pictureBox.Image != null)
@@ -317,26 +339,32 @@ namespace PlantUMLFileWatcher
 		private void OpenHomepage(String url)		
 		{
 		}
+
+		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			 if (!String.IsNullOrEmpty(lblFileName.Text))
+			 {
+				  _lastWriteDateTime = File.GetLastWriteTime(lblFileName.Text);
+				  fileSystemWatcher1.EnableRaisingEvents = false;
+				  _refreshImage = false;
+				  LoadFile(lblFileName.Text);
+			 }
+		}
+
 		#endregion
 
 		#region Helper methods
+
+		
+
+
 		private void plantUMLHomePageToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			OpenHomepage(Properties.Settings.Default.PlantUMLHomePage);
 		}
 		#endregion
 
-		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (!String.IsNullOrEmpty(lblFileName.Text) )
-			{
-				_lastWriteDateTime = File.GetLastWriteTime(lblFileName.Text);
-				fileSystemWatcher1.EnableRaisingEvents = false;
-				_refreshImage = false;
-				LoadFile(lblFileName.Text);
-			}
-		}
-
+		#region Drag and drop
 		private void panel1_DragDrop(object sender, DragEventArgs e)
 		{
 			 if (!DragDropDataOk(e))
@@ -376,7 +404,7 @@ namespace PlantUMLFileWatcher
 			 return filename;
 		}
 
-	
-		
+		#endregion
+
 	}
 }
