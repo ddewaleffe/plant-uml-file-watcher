@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using System.Configuration;
 using System.Drawing.Imaging;
+using System.Reflection;
 
 namespace PlantUMLFileWatcher
 {
@@ -50,8 +51,8 @@ namespace PlantUMLFileWatcher
 			panel1.Click += new EventHandler(panel1_Click);
 
 			_resentFileHandler = new ResentFileHandler(recentToolStripMenuItem, new ResentFileHandler.OpenRecentFileHandler(OnResentFile));
-
-			this.Text = String.Format("{0} - version {1}", Properties.Settings.Default.ApplicationTitle, Properties.Settings.Default.ApplicationVersion ); 
+			  
+			this.Text = String.Format("{0} - version {1}", Properties.Settings.Default.ApplicationTitle, Assembly.GetEntryAssembly().GetName().Version.ToString()); 
 		}
 		#endregion
 
@@ -335,5 +336,47 @@ namespace PlantUMLFileWatcher
 				LoadFile(lblFileName.Text);
 			}
 		}
+
+		private void panel1_DragDrop(object sender, DragEventArgs e)
+		{
+			 if (!DragDropDataOk(e))
+				  return;
+			 string filename = GetFileNameFromDragDrop(e);
+			 LoadFile(filename);
+		}
+
+		private void panel1_DragEnter(object sender, DragEventArgs e)
+		{
+			 if (DragDropDataOk(e))
+				  e.Effect = DragDropEffects.Link;
+		}
+
+		private bool DragDropDataOk(DragEventArgs e)
+		{
+			 string filename = GetFileNameFromDragDrop(e);
+			 return filename != null && File.Exists(filename) && HasValidFileExtension(filename);			
+		}
+
+		private bool HasValidFileExtension(string filename)
+		{
+			 if (filename == null)
+				  return false;
+			 return filename.EndsWith(".uml", StringComparison.InvariantCultureIgnoreCase) || filename.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase);		
+		}
+
+		private static string GetFileNameFromDragDrop(DragEventArgs e)
+		{
+			 string filename = null;
+			 if (e.Data.GetDataPresent(DataFormats.FileDrop))
+			 {
+				  object obj = e.Data.GetData(DataFormats.FileDrop);
+				  if (obj != null && obj is string[] && ((string[]) obj).Length > 0)
+						filename = ((string[])obj)[0];
+			 }
+			 return filename;
+		}
+
+	
+		
 	}
 }

@@ -11,9 +11,6 @@
     <Setting Name="ApplicationTitle" Type="System.String" Scope="User">
       <Value Profile="(Default)">PlantUML File Watcher</Value>
     </Setting>
-    <Setting Name="ApplicationVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0.5.2</Value>
-    </Setting>
     <Setting Name="ProjectHomePage" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://code.google.com/p/plant-uml-file-watcher/</Value>
     </Setting>
