@@ -14,7 +14,7 @@ using System.Drawing.Imaging;
 
 namespace PlantUMLFileWatcher
 {
-	public partial class PlantUMLViewer : Form
+	internal partial class PlantUMLViewer : Form
 	{
 		#region Fields and constructors
 
@@ -62,7 +62,7 @@ namespace PlantUMLFileWatcher
 			LoadFile(filename);
 		}
 
-		public bool LoadFile(string fullPathToFile)
+		internal bool LoadFile(string fullPathToFile)
 		{
 			Cursor oldCursor = Cursor.Current;
 			try
